@@ -1,5 +1,15 @@
 version: '0.0.{build}'
-image: Visual Studio 2017
+image: Ubuntu
+services:
+  - docker
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
 branches:
   only:
   - master
@@ -8,8 +18,10 @@ configuration:
 before_build:
   # Display .NET Core version
   - cmd: dotnet --version
-build_script:
-  - cmd: dotnet pack /p:Version="%APPVEYOR_BUILD_VERSION%"
+test:
+  assemblies:
+    only:
+      - '**\*.Tests.dll'
 artifacts:
   - path: '**\*.nupkg'
 # deploy:
