@@ -3,18 +3,20 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Xunit;
+using Xunit.Abstractions;
+using Xunit.Sdk;
 
 namespace TestContainers.TestEnvironment
 {
     public class GenericHostFixture<TConfigurator> : IAsyncLifetime
         where TConfigurator : IConfigureGenericHostFixture, new()
     {
-        private readonly ILogger<GenericHostFixture<TConfigurator>> _logger;
+        private readonly IMessageSink _messageSink;
         private IHost _host;
 
-        public GenericHostFixture(ILogger<GenericHostFixture<TConfigurator>> logger)
+        public GenericHostFixture(IMessageSink messageSink)
         {
-            _logger = logger;
+            _messageSink = messageSink;
         }
 
         public async Task InitializeAsync()
@@ -35,7 +37,7 @@ namespace TestContainers.TestEnvironment
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "Error occured while cleaning up resources");
+                _messageSink.OnMessage(new DiagnosticMessage("Error occured while cleaning up resources: {0}", ex));
             }
         }
     }
