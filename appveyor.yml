@@ -13,6 +13,8 @@ dotnet_csproj:
 branches:
   only:
   - master
+build:
+  publish_nuget: true
 configuration:
   - Release
 before_build:
