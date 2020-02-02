@@ -12,28 +12,29 @@ namespace TestContainers.TestEnvironment
         where TConfigurator : IConfigureGenericHostFixture, new()
     {
         private readonly IMessageSink _messageSink;
-        private IHost _host;
 
         public GenericHostFixture(IMessageSink messageSink)
         {
             _messageSink = messageSink;
         }
 
+        public IHost Host { get; private set; }
+
         public async Task InitializeAsync()
         {
-            var hostBuilder = Host.CreateDefaultBuilder();
+            var hostBuilder = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder();
             var configurator = new TConfigurator();
             configurator.Configure(hostBuilder);
-            _host = await hostBuilder.StartAsync();
+            Host = await hostBuilder.StartAsync();
         }
 
         public async Task DisposeAsync()
         {
-            if (_host == null) return;
+            if (Host == null) return;
             try
             {
-                await _host.StopAsync();
-                _host.Dispose();
+                await Host.StopAsync();
+                Host.Dispose();
             }
             catch (Exception ex)
             {
