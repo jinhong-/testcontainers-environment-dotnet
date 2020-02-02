@@ -6,6 +6,7 @@
         <PackageProjectUrl>https://github.com/jinhong-/testcontainers-environment-dotnet</PackageProjectUrl>
         <RepositoryUrl>https://github.com/jinhong-/testcontainers-environment-dotnet</RepositoryUrl>
         <PackageLicenseUrl>https://github.com/jinhong-/testcontainers-environment-dotnet/blob/master/LICENSE</PackageLicenseUrl>
+        <PackageVersion>1.0.0</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
