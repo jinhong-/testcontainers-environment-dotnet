@@ -11,7 +11,7 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.0.2" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
-        <PackageReference Include="TestContainers.Container.Abstractions" Version="1.4.6" />
+        <PackageReference Include="TestContainers.Container.Abstractions" Version="1.4.7" />
         <PackageReference Include="TestContainers.Container.Database.PostgreSql" Version="1.4.6" />
         <PackageReference Include="xunit" Version="2.4.1" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
