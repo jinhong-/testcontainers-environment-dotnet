@@ -8,7 +8,7 @@ using Xunit.Sdk;
 
 namespace TestContainers.TestEnvironment
 {
-    public class GenericHostFixture<TConfigurator> : IAsyncLifetime
+    public class GenericHostFixture<TConfigurator> : IAsyncLifetime, IServiceProvider
         where TConfigurator : IConfigureGenericHostFixture, new()
     {
         private readonly IMessageSink _messageSink;
@@ -41,5 +41,7 @@ namespace TestContainers.TestEnvironment
                 _messageSink.OnMessage(new DiagnosticMessage("Error occured while cleaning up resources: {0}", ex));
             }
         }
+
+        public object GetService(Type serviceType) => this.Host.Services.GetService(serviceType);
     }
 }
